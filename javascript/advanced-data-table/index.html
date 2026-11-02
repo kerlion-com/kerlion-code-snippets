@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="KERLION">
+    <meta name="description" content="Advanced Data Table - Search, sort, filter, pagination and CSV export.">
+
+    <title>KERLION Advanced Data Table</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="table.js" defer></script>
+</head>
+
+<body>
+
+    <main class="app-container">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div>
+                <span class="app-label">KERLION DEVELOPER TOOLS</span>
+                <h1>جدول البيانات المتقدم</h1>
+                <p>إدارة البيانات والبحث والتصفية والتصدير بسهولة.</p>
+            </div>
+
+            <a
+                class="brand-link"
+                href="https://www.kerlionvip.com"
+                target="_blank"
+                rel="noopener noreferrer">
+                KERLION
+            </a>
+        </header>
+
+        <!-- Statistics -->
+        <section class="stats-grid" aria-label="إحصائيات البيانات">
+
+            <article class="stat-card">
+                <span>إجمالي السجلات</span>
+                <strong id="totalRecords">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>السجلات المعروضة</span>
+                <strong id="visibleRecords">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>عدد الصفحات</span>
+                <strong id="totalPages">0</strong>
+            </article>
+
+        </section>
+
+        <!-- Table Panel -->
+        <section class="table-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>قائمة البيانات</h2>
+                    <p>استخدم أدوات البحث والتصفية للوصول إلى النتائج.</p>
+                </div>
+
+                <button
+                    type="button"
+                    id="exportCsv"
+                    class="button button-primary">
+                    تنزيل CSV
+                </button>
+            </div>
+
+            <!-- Filters -->
+            <div class="table-toolbar">
+
+                <div class="search-group">
+                    <label for="searchInput">البحث</label>
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="ابحث بالاسم أو البريد أو أي بيانات..."
+                        autocomplete="off">
+                </div>
+
+                <div class="filter-group">
+                    <label for="roleFilter">الوظيفة</label>
+                    <select id="roleFilter">
+                        <option value="">جميع الوظائف</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="statusFilter">الحالة</label>
+                    <select id="statusFilter">
+                        <option value="">جميع الحالات</option>
+                        <option value="active">نشط</option>
+                        <option value="inactive">غير نشط</option>
+                        <option value="pending">قيد المراجعة</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="pageSize">عدد النتائج</label>
+                    <select id="pageSize">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+
+                <button
+                    type="button"
+                    id="resetFilters"
+                    class="button button-secondary">
+                    إعادة ضبط
+                </button>
+
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-wrapper">
+
+                <table id="dataTable">
+                    <caption class="visually-hidden">
+                        جدول بيانات المستخدمين التجريبي
+                    </caption>
+
+                    <thead>
+                        <tr>
+                            <th scope="col" aria-sort="none">
+                                <button class="sort-button" data-sort="id" type="button">
+                                    الرقم <span aria-hidden="true">↕</span>
+                                </button>
+                            </th>
+
+                            <th scope="col" aria-sort="none">
+                                <button class="sort-button" data-sort="name" type="button">
+                                    الاسم <span aria-hidden="true">↕</span>
+                                </button>
+                            </th>
+
+                            <th scope="col" aria-sort="none">
+                                <button class="sort-button" data-sort="email" type="button">
+                                    البريد الإلكتروني <span aria-hidden="true">↕</span>
+                                </button>
+                            </th>
+
+                            <th scope="col" aria-sort="none">
+                                <button class="sort-button" data-sort="role" type="button">
+                                    الوظيفة <span aria-hidden="true">↕</span>
+                                </button>
+                            </th>
+
+                            <th scope="col">الحالة</th>
+
+                            <th scope="col" aria-sort="none">
+                                <button class="sort-button" data-sort="date" type="button">
+                                    تاريخ التسجيل <span aria-hidden="true">↕</span>
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+                        <!-- Generated by table.js -->
+                    </tbody>
+
+                </table>
+
+                <div
+                    id="emptyState"
+                    class="empty-state"
+                    hidden
+                    role="status">
+                    لا توجد نتائج مطابقة لعملية البحث.
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <footer class="table-footer">
+
+                <div
+                    id="resultInfo"
+                    class="result-info"
+                    aria-live="polite">
+                    جاري تحميل البيانات...
+                </div>
+
+                <nav class="pagination" aria-label="التنقل بين صفحات الجدول">
+
+                    <button
+                        type="button"
+                        id="prevPage"
+                        class="button button-secondary"
+                        disabled>
+                        السابق
+                    </button>
+
+                    <span id="pageIndicator" aria-live="polite">
+                        0 / 0
+                    </span>
+
+                    <button
+                        type="button"
+                        id="nextPage"
+                        class="button button-secondary"
+                        disabled>
+                        التالي
+                    </button>
+
+                </nav>
+
+            </footer>
+
+        </section>
+
+        <footer class="site-footer">
+            <p>
+                KERLION Advanced Data Table
+                &copy; <span id="currentYear">2026</span>
+            </p>
+            <p>أداة مفتوحة المصدر ضمن مكتبة KERLION Code Snippets.</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
