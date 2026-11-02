@@ -1,0 +1,744 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>قالب صفحة عربية متجاوبة</title>
+    <meta name="description" content="قالب صفحة ويب عربية متجاوبة باستخدام HTML وCSS وJavaScript.">
+    <meta name="author" content="KERLION">
+    <meta name="theme-color" content="#f7f8fc">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="قالب صفحة عربية متجاوبة">
+    <meta property="og:description" content="قالب ويب عربي متجاوب وقابل للتخصيص.">
+
+    <style>
+        /* =================================
+           1. Design Variables
+        ================================= */
+
+        :root {
+            color-scheme: light;
+
+            --bg: #f7f8fc;
+            --surface: #ffffff;
+            --surface-soft: #eef1f7;
+            --text: #172033;
+            --muted: #667085;
+            --primary: #087f5b;
+            --primary-hover: #066748;
+            --border: #e0e5ec;
+            --shadow: 0 12px 35px rgba(20, 35, 60, 0.07);
+            --radius: 18px;
+            --container: 1120px;
+        }
+
+        html[data-theme="dark"] {
+            color-scheme: dark;
+
+            --bg: #101722;
+            --surface: #182332;
+            --surface-soft: #202d3d;
+            --text: #f1f5f9;
+            --muted: #a8b4c4;
+            --primary: #27bd8c;
+            --primary-hover: #43d5a5;
+            --border: #2e3d50;
+            --shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+        }
+
+        /* =================================
+           2. Reset and Base
+        ================================= */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Tahoma, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 4px;
+        }
+
+        .container {
+            width: min(100% - 36px, var(--container));
+            margin-inline: auto;
+        }
+
+        .section {
+            padding-block: 76px;
+        }
+
+        .section-heading {
+            margin-bottom: 30px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 10px;
+            font-size: clamp(1.5rem, 3vw, 2.1rem);
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        /* =================================
+           3. Skip Link
+        ================================= */
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            right: 16px;
+            z-index: 1000;
+            padding: 10px 16px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        /* =================================
+           4. Header and Navigation
+        ================================= */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 900;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: var(--muted);
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        /* =================================
+           5. Buttons
+        ================================= */
+
+        .button {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 19px;
+            border: 1px solid transparent;
+            border-radius: 11px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .button-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .button-outline {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--text);
+        }
+
+        .button-outline:hover {
+            background: var(--surface-soft);
+        }
+
+        /* =================================
+           6. Hero Section
+        ================================= */
+
+        .hero {
+            padding-block: 95px 85px;
+            background:
+                radial-gradient(
+                    circle at 85% 15%,
+                    rgba(39, 189, 140, 0.12),
+                    transparent 35%
+                );
+        }
+
+        .hero-content {
+            max-width: 790px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 17px;
+            padding: 6px 14px;
+            background: var(--surface-soft);
+            color: var(--primary);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .hero h1 {
+            margin: 0 0 20px;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.35;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            max-width: 680px;
+            margin: 0 0 30px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* =================================
+           7. Features
+        ================================= */
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 26px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+            background: var(--surface-soft);
+            color: var(--primary);
+            border-radius: 14px;
+            font-size: 1.35rem;
+            font-weight: bold;
+        }
+
+        .feature-card h3 {
+            margin: 0 0 9px;
+            font-size: 1.15rem;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* =================================
+           8. About Section
+        ================================= */
+
+        .about-box {
+            padding: clamp(24px, 5vw, 45px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .about-box p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        /* =================================
+           9. Contact Section
+        ================================= */
+
+        .contact-box {
+            padding: clamp(24px, 5vw, 45px);
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .contact-box h2 {
+            margin-top: 0;
+        }
+
+        .contact-box p {
+            color: var(--muted);
+        }
+
+        /* =================================
+           10. Footer
+        ================================= */
+
+        .site-footer {
+            padding-block: 30px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .site-footer p {
+            margin: 5px 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* =================================
+           11. Responsive Layout
+        ================================= */
+
+        @media (max-width: 760px) {
+            .header-inner {
+                flex-wrap: wrap;
+                padding-block: 14px;
+            }
+
+            .header-actions {
+                margin-inline-start: auto;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .nav {
+                display: none;
+                flex-basis: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 8px;
+                background: var(--surface-soft);
+                border-radius: 12px;
+            }
+
+            .nav.is-open {
+                display: flex;
+            }
+
+            .nav a {
+                display: block;
+                padding: 11px 12px;
+            }
+
+            .hero {
+                padding-block: 65px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding-block: 55px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a class="skip-link" href="#main-content">
+        تخطي إلى المحتوى الرئيسي
+    </a>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+
+            <a class="brand" href="#home" aria-label="الصفحة الرئيسية">
+                <span class="brand-mark" aria-hidden="true">K</span>
+                <span>اسم مشروعك</span>
+            </a>
+
+            <nav class="nav" id="primary-nav" aria-label="القائمة الرئيسية">
+                <a href="#home" aria-current="page">الرئيسية</a>
+                <a href="#features">المميزات</a>
+                <a href="#about">من نحن</a>
+                <a href="#contact">تواصل معنا</a>
+            </nav>
+
+            <div class="header-actions">
+
+                <button
+                    class="button button-outline"
+                    id="theme-toggle"
+                    type="button"
+                    aria-label="تفعيل الوضع الداكن">
+                    <span aria-hidden="true">◐</span>
+                    <span id="theme-label">الوضع الداكن</span>
+                </button>
+
+                <button
+                    class="button button-outline menu-toggle"
+                    id="menu-toggle"
+                    type="button"
+                    aria-controls="primary-nav"
+                    aria-expanded="false"
+                    aria-label="فتح القائمة">
+                    ☰ القائمة
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main id="main-content">
+
+        <!-- Hero -->
+        <section class="hero" id="home">
+            <div class="container hero-content">
+
+                <span class="eyebrow">حلول رقمية تناسب احتياجاتك</span>
+
+                <h1>
+                    أنجز أعمالك بطريقة
+                    <span>أبسط وأكثر ذكاءً</span>
+                </h1>
+
+                <p class="hero-description">
+                    أضف هنا نبذة واضحة عن مشروعك أو خدماتك،
+                    واشرح للزوار كيف تساعدهم وما القيمة التي تقدمها لهم.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#features">
+                        اكتشف المميزات
+                    </a>
+
+                    <a class="button button-outline" href="#contact">
+                        تواصل معنا
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section" id="features">
+            <div class="container">
+
+                <div class="section-heading">
+                    <h2>ماذا نقدم؟</h2>
+                    <p>عرّف الزوار بأهم الخدمات والمميزات التي يوفرها مشروعك.</p>
+                </div>
+
+                <div class="features-grid">
+
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">01</div>
+                        <h3>الخدمة الأولى</h3>
+                        <p>
+                            أضف وصفًا مختصرًا يوضح فائدة الخدمة
+                            وكيف يمكن للمستخدم الاستفادة منها.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">02</div>
+                        <h3>الخدمة الثانية</h3>
+                        <p>
+                            اشرح المميزات الأساسية للخدمة
+                            بطريقة واضحة ومباشرة.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">03</div>
+                        <h3>الخدمة الثالثة</h3>
+                        <p>
+                            يمكنك استخدام هذه البطاقة
+                            لعرض ميزة أو منتج أو حل إضافي.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="section" id="about">
+            <div class="container">
+
+                <div class="about-box">
+                    <div class="section-heading">
+                        <h2>من نحن</h2>
+                    </div>
+
+                    <p>
+                        اكتب هنا نبذة تعريفية عن مشروعك،
+                        ورؤيتك، وأهدافك، والفئات التي تستفيد من خدماتك.
+                        اجعل النص واضحًا ومختصرًا حتى يتمكن الزائر
+                        من فهم طبيعة المشروع بسرعة.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="section" id="contact">
+            <div class="container">
+
+                <div class="contact-box">
+                    <h2>هل لديك استفسار؟</h2>
+
+                    <p>
+                        يمكنك التواصل معنا عبر البريد الإلكتروني
+                        للحصول على المعلومات أو الدعم.
+                    </p>
+
+                    <a
+                        class="button button-primary"
+                        href="mailto:hello@example.com">
+                        راسلنا الآن
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+
+            <p>
+                &copy; <span id="current-year">2026</span>
+                جميع الحقوق محفوظة.
+            </p>
+
+            <p>تم تطوير هذا القالب بواسطة KERLION.</p>
+
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        "use strict";
+
+        // Enable JavaScript-dependent styles
+        document.documentElement.classList.add("js");
+
+        // Theme controls
+        const themeToggle = document.getElementById("theme-toggle");
+        const themeLabel = document.getElementById("theme-label");
+
+        function readSavedTheme() {
+            try {
+                return localStorage.getItem("kerlion-template-theme");
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function saveTheme(theme) {
+            try {
+                localStorage.setItem("kerlion-template-theme", theme);
+            } catch (error) {
+                // Theme still works for the current page session.
+            }
+        }
+
+        function updateThemeButton() {
+            const isDark = document.documentElement.dataset.theme === "dark";
+
+            themeLabel.textContent = isDark
+                ? "الوضع الفاتح"
+                : "الوضع الداكن";
+
+            themeToggle.setAttribute(
+                "aria-label",
+                isDark ? "تفعيل الوضع الفاتح" : "تفعيل الوضع الداكن"
+            );
+        }
+
+        const savedTheme = readSavedTheme();
+
+        const systemPrefersDark = window.matchMedia
+            ? window.matchMedia("(prefers-color-scheme: dark)").matches
+            : false;
+
+        const initialTheme =
+            savedTheme === "light" || savedTheme === "dark"
+                ? savedTheme
+                : (systemPrefersDark ? "dark" : "light");
+
+        document.documentElement.dataset.theme = initialTheme;
+        updateThemeButton();
+
+        themeToggle.addEventListener("click", function () {
+            const currentTheme = document.documentElement.dataset.theme;
+
+            const nextTheme = currentTheme === "dark"
+                ? "light"
+                : "dark";
+
+            document.documentElement.dataset.theme = nextTheme;
+            saveTheme(nextTheme);
+            updateThemeButton();
+        });
+
+        // Mobile navigation controls
+        const menuToggle = document.getElementById("menu-toggle");
+        const primaryNav = document.getElementById("primary-nav");
+
+        function closeMenu() {
+            primaryNav.classList.remove("is-open");
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "فتح القائمة");
+        }
+
+        menuToggle.addEventListener("click", function () {
+            const isOpen = primaryNav.classList.toggle("is-open");
+
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "إغلاق القائمة" : "فتح القائمة"
+            );
+        });
+
+        // Close menu after choosing a navigation link
+        primaryNav.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", closeMenu);
+        });
+
+        // Close menu with Escape
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeMenu();
+            }
+        });
+
+        // Close mobile menu when returning to desktop width
+        window.addEventListener("resize", function () {
+            if (window.innerWidth > 760) {
+                closeMenu();
+            }
+        });
+
+        // Automatically update the copyright year
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>
