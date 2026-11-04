@@ -1,4 +1,3 @@
-
 # KERLION Code Snippets
 
 ### Reusable Code. Practical Solutions. Better Web Development.
@@ -126,6 +125,7 @@ The generated CSV file uses UTF-8 encoding to support Arabic text in compatible 
 
 **Project Links:**
 
+- [Read the Full Arabic Guide on KERLION](https://www.kerlionvip.com/2026/11/kerlion-advanced-data-table.html)
 - [View Project Files](javascript/advanced-data-table/)
 - [View HTML Interface Source](javascript/advanced-data-table/index.html)
 - [View CSS Styles](javascript/advanced-data-table/styles.css)
