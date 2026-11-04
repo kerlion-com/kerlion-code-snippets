@@ -1,7 +1,12 @@
-
 # KERLION Advanced Data Table
 
 A responsive and reusable Arabic data table built with HTML, CSS, and vanilla JavaScript.
+
+## Full Arabic Guide
+
+For a detailed explanation of the project, including its features, installation, JavaScript implementation, CSV export, customization, and limitations, read the full Arabic guide:
+
+[Read the Full Arabic Guide: KERLION Advanced Data Table](https://www.kerlionvip.com/2026/11/kerlion-advanced-data-table.html)
 
 ## Features
 
