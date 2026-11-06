@@ -134,6 +134,27 @@ button:disabled {
     font-size: 0.96rem;
 }
 
+.developer-guide-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 12px;
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--primary);
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+        background-color var(--transition),
+        border-color var(--transition);
+}
+
+.developer-guide-link:hover {
+    background: var(--surface-soft);
+    border-color: var(--primary);
+}
+
 .app-label {
     display: inline-block;
     color: var(--primary);
