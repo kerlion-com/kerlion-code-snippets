@@ -3,7 +3,7 @@
 ### Reusable Code. Practical Solutions. Better Web Development.
 
 <p align="center">
-  <img src="assets/kerlion-code-snippets-social.png" alt="KERLION Code Snippets social preview" width="100%">
+  <img src="kerlion-code-snippets-social.png" alt="KERLION Code Snippets social preview" width="100%">
 </p>
 
 **KERLION Code Snippets** is an open-source collection of useful and reusable web development code snippets created and maintained by KERLION.
