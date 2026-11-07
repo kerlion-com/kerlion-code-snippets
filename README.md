@@ -2,6 +2,10 @@
 
 ### Reusable Code. Practical Solutions. Better Web Development.
 
+<p align="center">
+  <img src="assets/kerlion-code-snippets-social.png" alt="KERLION Code Snippets social preview" width="100%">
+</p>
+
 **KERLION Code Snippets** is an open-source collection of useful and reusable web development code snippets created and maintained by KERLION.
 
 This repository provides developers with practical HTML, CSS, and JavaScript solutions, ready-to-use components, interface elements, and tools for common web development tasks.
@@ -189,6 +193,9 @@ The current repository structure is organized as follows:
 
 ```text
 kerlion-code-snippets/
+│
+├── assets/
+│   └── kerlion-code-snippets-social.png
 │
 ├── html/
 │   └── semantic-page-template.html
